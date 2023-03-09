@@ -1,2 +1,2 @@
 ## Task Manager APP
-### MERN Stack
+### MERN Stack Application
