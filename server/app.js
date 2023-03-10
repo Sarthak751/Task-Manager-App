@@ -26,13 +26,20 @@ app.delete('/tasks/delete/:id', async(req,res) => {
 })
 
 app.put('/tasks/complete/:id', async(req,res) => {
-    const task = await Task.findById(req.params.id);
-    task.completed = !task.completed;
-    await task.save();
-    res.json(task);
+    try {
+        const task = await Task.findById(req.params.id);
+        if (!task) {
+            res.json("Task not found");
+        }
+        task.completed = !task.completed;
+        await task.save();
+        res.json(task);
+    } catch (err) {
+        console.error("Error");
+    }
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 connectDB(process.env.MONGO_URI)
     .then(() => {
